@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Vincent Jomo | Engineering Portfolio"
+description = "A personal portfolio for Vincent Fidel Jomo, an eleventh-grade student aspiring to specialize in structural and bridge engineering. It presents his story, academic foundation, ambitions, and vision for infrastructure that connects communities."
+version = "1.0.0"
+id = "artifacts/vincent-jomo-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22278
+
+[services.development]
+run = "pnpm --filter @workspace/vincent-jomo-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vincent-jomo-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/vincent-jomo-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22278"
+BASE_PATH = "/"
